@@ -2,12 +2,16 @@ from flask import Flask,render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
+from flask_migrate import Migrate
 
 file_path = os.path.abspath(os.getcwd())+"\database.db"
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///'+file_path
 db = SQLAlchemy(app)
+
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 class Blogpost(db.Model):
     id = db.Column(db.Integer,primary_key=True)
